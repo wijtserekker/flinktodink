@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flinkie2:FlowChart
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:flinkie2="http://www.example.org/flinkie"
+    xsi:schemaLocation="http://www.example.org/flinkie flinkie2.ecore">
+  <nodes xsi:type="flinkie2:Message"
+      text="The lamp is on."
+      node="//@nodes.3">
+    <assignstats>
+      <variableexpr
+          variable="//@init/@declexprs.0/@variable"/>
+      <intexpr
+          xsi:type="flinkie2:Integer"
+          value="1"/>
+    </assignstats>
+  </nodes>
+  <nodes xsi:type="flinkie2:Message"
+      text="The lamp is off."
+      node="//@nodes.2">
+    <assignstats>
+      <variableexpr
+          variable="//@init/@declexprs.0/@variable"/>
+      <intexpr
+          xsi:type="flinkie2:Integer"/>
+    </assignstats>
+  </nodes>
+  <nodes xsi:type="flinkie2:Question"
+      text="Do you want to turn the lamp on?">
+    <options
+        text="NO"
+        node="//@nodes.1"/>
+    <options
+        text="YES"
+        node="//@nodes.4"/>
+  </nodes>
+  <nodes xsi:type="flinkie2:Question"
+      text="Do you want to turn the lamp off?">
+    <options
+        text="NO"
+        node="//@nodes.0"/>
+    <options
+        text="YES"
+        node="//@nodes.5"/>
+  </nodes>
+  <nodes xsi:type="flinkie2:BooleanEvaluation"
+      true="//@nodes.0"
+      false="//@nodes.1">
+    <assignstats>
+      <variableexpr
+          variable="//@init/@declexprs.1/@variable"/>
+      <intexpr
+          xsi:type="flinkie2:TwoOpInt"
+          operator="ADD">
+        <left
+            xsi:type="flinkie2:VariableExpr"
+            variable="//@init/@declexprs.1/@variable"/>
+        <right
+            xsi:type="flinkie2:Integer"
+            value="1"/>
+      </intexpr>
+    </assignstats>
+    <boolexpr
+        xsi:type="flinkie2:Comparison">
+      <right
+          xsi:type="flinkie2:VariableExpr"
+          variable="//@init/@declexprs.1/@variable"/>
+      <left
+          xsi:type="flinkie2:TwoOpInt"
+          operator="MUL">
+        <left
+            xsi:type="flinkie2:BracExprInt">
+          <intexpr
+              xsi:type="flinkie2:TwoOpInt"
+              operator="DIV">
+            <left
+                xsi:type="flinkie2:VariableExpr"
+                variable="//@init/@declexprs.1/@variable"/>
+            <right
+                xsi:type="flinkie2:Integer"
+                value="2"/>
+          </intexpr>
+        </left>
+        <right
+            xsi:type="flinkie2:Integer"
+            value="2"/>
+      </left>
+    </boolexpr>
+  </nodes>
+  <nodes xsi:type="flinkie2:BooleanEvaluation"
+      true="//@nodes.1"
+      false="//@nodes.0">
+    <assignstats>
+      <variableexpr
+          variable="//@init/@declexprs.1/@variable"/>
+      <intexpr
+          xsi:type="flinkie2:TwoOpInt"
+          operator="ADD">
+        <left
+            xsi:type="flinkie2:VariableExpr"
+            variable="//@init/@declexprs.1/@variable"/>
+        <right
+            xsi:type="flinkie2:Integer"
+            value="1"/>
+      </intexpr>
+    </assignstats>
+    <boolexpr
+        xsi:type="flinkie2:Comparison">
+      <right
+          xsi:type="flinkie2:VariableExpr"
+          variable="//@init/@declexprs.1/@variable"/>
+      <left
+          xsi:type="flinkie2:TwoOpInt"
+          operator="MUL">
+        <left
+            xsi:type="flinkie2:BracExprInt">
+          <intexpr
+              xsi:type="flinkie2:TwoOpInt"
+              operator="DIV">
+            <left
+                xsi:type="flinkie2:VariableExpr"
+                variable="//@init/@declexprs.1/@variable"/>
+            <right
+                xsi:type="flinkie2:Integer"
+                value="2"/>
+          </intexpr>
+        </left>
+        <right
+            xsi:type="flinkie2:Integer"
+            value="2"/>
+      </left>
+    </boolexpr>
+  </nodes>
+  <init node="//@nodes.1">
+    <declexprs>
+      <variable
+          name="lampOn"/>
+    </declexprs>
+    <declexprs>
+      <variable
+          name="counter"/>
+    </declexprs>
+  </init>
+</flinkie2:FlowChart>
