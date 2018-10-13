@@ -1,0 +1,14 @@
+modeltype Flinkie uses 'http://www.example.org/flinkie';
+modeltype Dinkie uses 'http://www.example.org/dinkiemodel';
+
+transformation flinktodink(in flinkie : Flinkie, out Dinkie);
+
+main() {
+    flinkie.rootObjects()[Flinkie::FlowChart]->asOrderedSet()->first()->map flowcharttoprogram()
+}
+
+mapping Flinkie::FlowChart::flowcharttoprogram() : Dinkie::Program {
+    mainFunc := object Dinkie::Main {
+    	
+    };
+}

@@ -568,7 +568,7 @@
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="__GWxwLysEeiQXcKgNjz1gg" type="4001" element="__GPdALysEeiQXcKgNjz1gg" source="_e7_jELysEeiQXcKgNjz1gg" target="_g7hx4LysEeiQXcKgNjz1gg">
           <children xmi:type="notation:Node" xmi:id="__GWxxLysEeiQXcKgNjz1gg" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="__GWxxbysEeiQXcKgNjz1gg" x="23" y="-13"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="__GWxxbysEeiQXcKgNjz1gg" x="33" y="-13"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="__GWxxrysEeiQXcKgNjz1gg" type="6002">
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="__GWxx7ysEeiQXcKgNjz1gg" x="2" y="10"/>
@@ -1587,9 +1587,9 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC_EReference']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="__GPdALysEeiQXcKgNjz1gg" name="[1..1] main" sourceNode="_e7w5kLysEeiQXcKgNjz1gg" targetNode="_g7brQLysEeiQXcKgNjz1gg">
-      <target xmi:type="ecore:EReference" href="dinkiemodel.ecore#//Program/main"/>
-      <semanticElements xmi:type="ecore:EReference" href="dinkiemodel.ecore#//Program/main"/>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="__GPdALysEeiQXcKgNjz1gg" name="[1..1] mainFunc" sourceNode="_e7w5kLysEeiQXcKgNjz1gg" targetNode="_g7brQLysEeiQXcKgNjz1gg">
+      <target xmi:type="ecore:EReference" href="dinkiemodel.ecore#//Program/mainFunc"/>
+      <semanticElements xmi:type="ecore:EReference" href="dinkiemodel.ecore#//Program/mainFunc"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_Bn5hc7ytEeiQXcKgNjz1gg" description="_Bn5hcLytEeiQXcKgNjz1gg" sourceArrow="FillDiamond" routingStyle="manhattan" strokeColor="0,0,0">
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_Bn5hdLytEeiQXcKgNjz1gg" showIcon="false">
           <labelFormat>bold</labelFormat>
