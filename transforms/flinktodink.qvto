@@ -3,12 +3,483 @@ modeltype Dinkie uses 'http://www.example.org/dinkiemodel';
 
 transformation flinktodink(in flinkie : Flinkie, out Dinkie);
 
+property counter : Integer = 0;
+
 main() {
-    flinkie.rootObjects()[Flinkie::FlowChart]->asOrderedSet()->first()->map flowcharttoprogram()
+    flinkie.rootObjects()[Flinkie::FlowChart]->asOrderedSet()->first()->map flowchartToProgram()
 }
 
-mapping Flinkie::FlowChart::flowcharttoprogram() : Dinkie::Program {
+mapping Flinkie::FlowChart::flowchartToProgram() : Dinkie::Program {
     mainFunc := object Dinkie::Main {
-    	
+        // INITIALISING
+        // FLOWCHART VARIABLES
+        statements += self.initialisation.declstats->map declStatToDeclaration();
+        // PROGRAM VARIABLES
+        statements += self.getProgramVariables();
+        
+        // STRING INITIALISING
+        // - MESSAGES
+        statements += self.nodes[Flinkie::Message]->map messageToDeclaration();
+        // - QUESTIONS
+        statements += self.nodes[Flinkie::Question]->map questionToDeclaration();
+        // - OPTIONS
+        statements += self.nodes[Flinkie::Question]->map questionOptionsToDeclarations()->flatten();
+        
+        // FLOWCHART CODE
+        statements += object Dinkie::While {
+        	expression := object Dinkie::TwoOperator {
+        		leftExpr := object Dinkie::VariableExpr {
+        			name := 'cur_node';
+        		};
+        		operator := Dinkie::ETwoOperator::NOT_EQUAL;
+        		rightExpr := object Dinkie::Number {
+        			value := -1;
+        		};
+        	};
+        	// Message Nodes
+        	statements += self.nodes[Flinkie::Message]->map messageToIf(self);
+        	// Question Nodes
+        	statements += self.nodes[Flinkie::Question]->map questionToIf(self);
+        	// Boolean evaluation Nodes
+        	statements += self.nodes[Flinkie::BooleanEvaluation]->map booleanEvaluationToIf(self);
+        }
     };
+    
 }
+
+mapping Flinkie::DeclStat::declStatToDeclaration() : Dinkie::Declaration {
+    varName := 'var_' + self.variable.name;
+    type := object Dinkie::BaseType {
+        type := Dinkie::EBaseType::INT;
+    }
+}
+
+mapping Flinkie::Message::messageToDeclaration() : Dinkie::StringArrayDecl {
+	varName := 'mes_' + counter.toString();
+	counter := counter + 1;
+	content := self.text;
+}
+
+mapping Flinkie::Question::questionToDeclaration() : Dinkie::StringArrayDecl {
+	varName := 'ques_' + counter.toString();
+    counter := counter + 1;
+    content := self.text;
+}
+
+mapping Flinkie::Question::questionOptionsToDeclarations() : OrderedSet(Dinkie::StringArrayDecl) {
+	init {
+		result += self.options->map optionToDeclaration(self);
+	}
+}
+
+mapping Flinkie::Option::optionToDeclaration(question : Flinkie::Question) : Dinkie::StringArrayDecl {
+	varName := 'option_' + counter.toString();
+    counter := counter + 1;
+    content := question.options->indexOf(self).toString() + '. ' + self.text;
+}
+
+mapping Flinkie::Message::messageToIf(flowchart : Flinkie::FlowChart) : Dinkie::IfOne {
+	expression := object Dinkie::TwoOperator {
+		leftExpr := object Dinkie::VariableExpr {
+			name := 'cur_node';
+		};
+		operator := Dinkie::ETwoOperator::EQUAL;
+		rightExpr := object Dinkie::Number {
+			value := flowchart.nodes->indexOf(self);
+		}
+	};
+	// MESSAGING
+	statements += object Dinkie::WriteStatement {
+		type := object Dinkie::ArrayType {
+			arrayType := Dinkie::EBaseType::CHAR;
+		};
+		expression := object Dinkie::VariableExpr {
+			name := self.resolveoneIn(Flinkie::Message::messageToDeclaration, Dinkie::StringArrayDecl).varName
+		};
+	};
+	statements += getNewLineWrite();
+	statements += object Dinkie::Assign {
+        varName := 'cur_node';
+        expression := object Dinkie::Number {
+        	value :=
+        	    if self.node = null then
+        	        -1
+        	    else
+        	        flowchart.nodes->indexOf(self.node)
+        	    endif;
+        }
+    };
+    // FINAL BREAK
+    statements += getNewLineWrite();
+    
+    // ASSIGNING
+    statements += self.assignstats->map assignStatToAssignStat();
+}
+
+mapping Flinkie::Question::questionToIf(flowchart : Flinkie::FlowChart) : Dinkie::IfOne {
+	expression := object Dinkie::TwoOperator {
+        leftExpr := object Dinkie::VariableExpr {
+            name := 'cur_node';
+        };
+        operator := Dinkie::ETwoOperator::EQUAL;
+        rightExpr := object Dinkie::Number {
+            value := flowchart.nodes->indexOf(self);
+        }
+    };
+    
+    // MESSAGING
+    // - Question message
+    statements += object Dinkie::WriteStatement {
+        type := object Dinkie::ArrayType {
+            arrayType := Dinkie::EBaseType::CHAR;
+        };
+        expression := object Dinkie::VariableExpr {
+            name := self.resolveoneIn(Flinkie::Question::questionToDeclaration, Dinkie::StringArrayDecl).varName
+        };
+    };
+    statements += getNewLineWrite();
+    // - Option messages
+    statements += self.options->map optionToWriteStatements()->flatten();
+    
+    // ASKING
+    statements += object Dinkie::Assign {
+    	varName := 'asking';
+    	expression := object Dinkie::BoolVal {
+    		value := true;
+    	};
+    };
+    statements += object Dinkie::While {
+    	expression := object Dinkie::VariableExpr {
+    		name := 'asking';
+    	};
+    	statements += object Dinkie::ReadStatement {
+    		type := object Dinkie::BaseType {
+    		    type := Dinkie::EBaseType::INT;
+    		};
+    		varName := 'answer';
+    	};
+    	// THE OPTION IFs
+    	statements += self.options->map optionToIfOne(flowchart, self);
+    	// THE INPUT CHECK IF
+    	statements += object Dinkie::IfOne {
+    		expression := object Dinkie::TwoOperator {
+    			leftExpr := object Dinkie::TwoOperator {
+    				leftExpr := object Dinkie::VariableExpr {
+    					name := 'answer';
+    				};
+    				operator := Dinkie::ETwoOperator::LT;
+    				rightExpr := object Dinkie::Number {
+    					value := 1;
+    				};
+    			};
+    			operator := Dinkie::ETwoOperator::AND;
+    			rightExpr := object Dinkie::TwoOperator {
+    				leftExpr := object Dinkie::VariableExpr {
+    					name := 'answer';
+    				};
+    				operator := Dinkie::ETwoOperator::GT;
+    				rightExpr := object Dinkie::Number {
+    					value := self.options->size();
+    				};
+    			};
+    		};
+    		statements += object Dinkie::WriteStatement {
+    		    type := object Dinkie::ArrayType {
+    		    	arrayType := Dinkie::EBaseType::CHAR;
+    		    };
+    		    expression := object Dinkie::VariableExpr {
+    		    	name := 'wrong_answer';
+    		    }
+    		};
+    		statements += getNewLineWrite();
+    	}
+    };
+    // FINAL BREAK
+    statements += getNewLineWrite();
+    
+    // ASSINGING
+    statements += self.assignstats->map assignStatToAssignStat();
+}
+
+mapping Flinkie::Option::optionToIfOne(flowchart : Flinkie::FlowChart, question : Flinkie::Question) : Dinkie::IfOne {
+	expression := object Dinkie::TwoOperator {
+		leftExpr := object Dinkie::VariableExpr {
+			name := 'answer';
+		};
+		operator := Dinkie::ETwoOperator::EQUAL;
+		rightExpr := object Dinkie::Number {
+			value := question.options->indexOf(self);
+		};
+	};
+	statements += object Dinkie::Assign {
+		varName := 'cur_node';
+		expression := object Dinkie::Number {
+			value := 
+			    if self.node = null then
+			        -1
+			    else
+			        flowchart.nodes->indexOf(self.node)
+			    endif;
+		}
+	};
+	statements += object Dinkie::Assign {
+		varName := 'asking';
+		expression := object Dinkie::BoolVal {
+			value := false;
+		}
+	};
+}
+
+mapping Flinkie::Option::optionToWriteStatements() : Sequence(Dinkie::WriteStatement) {
+	init {
+    	result += object Dinkie::WriteStatement {
+    		type := object Dinkie::ArrayType {
+    			arrayType := Dinkie::EBaseType::CHAR;
+    		};
+    		expression := object Dinkie::VariableExpr {
+    			name := self.resolveoneIn(Flinkie::Option::optionToDeclaration, Dinkie::StringArrayDecl).varName;
+    		}
+    	};
+    	result += getNewLineWrite();
+	}
+}
+
+mapping Flinkie::BooleanEvaluation::booleanEvaluationToIf(flowchart : Flinkie::FlowChart) : Dinkie::IfOne {
+	expression := object Dinkie::TwoOperator {
+        leftExpr := object Dinkie::VariableExpr {
+            name := 'cur_node';
+        };
+        operator := Dinkie::ETwoOperator::EQUAL;
+        rightExpr := object Dinkie::Number {
+            value := flowchart.nodes->indexOf(self);
+        }
+    };
+	
+	// EVALUATING
+	statements += object Dinkie::IfTwo {
+		expression := self.boolexpr.map boolExprToExpression();
+		thenStats += object Dinkie::Assign {
+			varName := 'cur_node';
+			expression := object Dinkie::Number {
+				value := 
+    				if self._true = null then
+    				    -1
+    				else
+    				    flowchart.nodes->indexOf(self._true)
+    				endif;
+			}
+		};
+		elseStats += object Dinkie::Assign {
+            varName := 'cur_node';
+            expression := object Dinkie::Number {
+                value := 
+                    if self._false = null then
+                        -1
+                    else
+                        flowchart.nodes->indexOf(self._false)
+                    endif;
+            }
+        };
+	};
+	
+	// ASSIGNING
+	statements += self.assignstats->map assignStatToAssignStat();
+}
+
+mapping Flinkie::AssignStat::assignStatToAssignStat() : Dinkie::Assign {
+	varName := 'var_' + self.variableexpr.variable.name;
+	expression := self.intexpr.map intExprToExpression();
+}
+
+
+// =============================================================================
+// ======================== INTEGER EXPRESSION MAPPINGS ========================
+// =============================================================================
+mapping Flinkie::IntExpr::intExprToExpression() : Dinkie::Expression {
+	init {
+		result :=
+		if self.oclIsTypeOf(Flinkie::TwoOpInt) then
+            self.oclAsType(Flinkie::TwoOpInt).map twoOpIntToTwoOperator()
+        elif self.oclIsTypeOf(Flinkie::BracExprInt) then
+            self.oclAsType(Flinkie::BracExprInt).map bracExprIntToBracketExpr()
+        elif self.oclIsTypeOf(Flinkie::Number) then
+            self.oclAsType(Flinkie::Number).map numberToNumber()
+        elif self.oclIsTypeOf(Flinkie::OneOpInt) then
+            self.oclAsType(Flinkie::OneOpInt).map oneOpIntToOneOperator()
+        else
+            self.oclAsType(Flinkie::VariableExpr).map variableExprToVariableExpr()
+        endif;
+	}
+}
+
+mapping Flinkie::TwoOpInt::twoOpIntToTwoOperator() : Dinkie::TwoOperator {
+	leftExpr := self.left.map intExprToExpression();
+	rightExpr := self.right.map intExprToExpression();
+	operator :=
+	    if (self.operator = Flinkie::EIntTwoOp::SUB) then
+            Dinkie::ETwoOperator::MINUS
+        elif (self.operator = Flinkie::EIntTwoOp::ADD) then
+            Dinkie::ETwoOperator::PLUS
+        elif (self.operator = Flinkie::EIntTwoOp::MUL) then
+            Dinkie::ETwoOperator::TIMES
+        else
+            Dinkie::ETwoOperator::DEVIDE
+        endif;
+}
+
+mapping Flinkie::OneOpInt::oneOpIntToOneOperator() : Dinkie::OneOperator {
+    expression := self.intexpr.map intExprToExpression();
+    operator := Dinkie::EOneOperator::MINUS;
+}
+
+mapping Flinkie::BracExprInt::bracExprIntToBracketExpr() : Dinkie::BracketExpr {
+	expression := self.intexpr.map intExprToExpression();
+}
+
+mapping Flinkie::Number::numberToNumber() : Dinkie::Number {
+	value := self.value;
+}
+
+mapping Flinkie::VariableExpr::variableExprToVariableExpr() : Dinkie::VariableExpr {
+	name := 'var_' + self.variable.name;
+}
+
+
+// =============================================================================
+// ======================== BOOLEAN EXPRESSION MAPPINGS ========================
+// =============================================================================
+mapping Flinkie::BoolExpr::boolExprToExpression() : Dinkie::Expression{
+	init {
+		result :=
+		if self.oclIsTypeOf(Flinkie::TwoOpBool) then
+            self.oclAsType(Flinkie::TwoOpBool).map twoOpBoolToTwoOperator()
+        elif self.oclIsTypeOf(Flinkie::BracExprBool) then
+            self.oclAsType(Flinkie::BracExprBool).map bracExprBoolToBracketExpr()
+        elif self.oclIsTypeOf(Flinkie::Comparison) then
+            self.oclAsType(Flinkie::Comparison).map comparisonToTwoOperator()
+        elif self.oclIsTypeOf(Flinkie::OneOpBool) then
+            self.oclAsType(Flinkie::OneOpBool).map oneOpBoolToOneOperator()
+        else
+            self.oclAsType(Flinkie::BoolVal).map boolValToBoolVal()
+        endif;
+	}
+}
+
+mapping Flinkie::TwoOpBool::twoOpBoolToTwoOperator() : Dinkie::TwoOperator {
+	leftExpr := self.left.map boolExprToExpression();
+    rightExpr := self.right.map boolExprToExpression();
+    operator :=
+        if (self.operator = Flinkie::EBoolTwoOp::AND) then
+            Dinkie::ETwoOperator::AND
+        elif (self.operator = Flinkie::EBoolTwoOp::OR) then
+            Dinkie::ETwoOperator::OR
+        elif (self.operator = Flinkie::EBoolTwoOp::XOR) then
+            Dinkie::ETwoOperator::XOR
+        endif;
+}
+
+mapping Flinkie::BracExprBool::bracExprBoolToBracketExpr() : Dinkie::BracketExpr {
+	expression := self.boolexpr.map boolExprToExpression()
+}
+
+mapping Flinkie::Comparison::comparisonToTwoOperator() : Dinkie::TwoOperator {
+	leftExpr := self.left.map intExprToExpression();
+    rightExpr := self.right.map intExprToExpression();
+    operator :=
+        if (self.operator = Flinkie::ECompOp::EQ) then
+            Dinkie::ETwoOperator::EQUAL
+        elif (self.operator = Flinkie::ECompOp::LE) then
+            Dinkie::ETwoOperator::LE
+        elif (self.operator = Flinkie::ECompOp::GT) then
+            Dinkie::ETwoOperator::GT
+        elif (self.operator = Flinkie::ECompOp::NE) then
+            Dinkie::ETwoOperator::NOT_EQUAL
+        elif (self.operator = Flinkie::ECompOp::GE) then
+            Dinkie::ETwoOperator::GE
+        elif (self.operator = Flinkie::ECompOp::LT) then
+            Dinkie::ETwoOperator::LT
+        endif
+}
+
+mapping Flinkie::OneOpBool::oneOpBoolToOneOperator() : Dinkie::OneOperator {
+	expression := self.boolexpr.map boolExprToExpression();
+	operator := Dinkie::EOneOperator::NOT;
+}
+
+mapping Flinkie::BoolVal::boolValToBoolVal() : Dinkie::BoolVal {
+	value := self.value;
+}
+
+query getNewLineWrite() : Dinkie::WriteStatement {
+	return object Dinkie::WriteStatement {
+		type := object Dinkie::ArrayType {
+			arrayType := Dinkie::EBaseType::CHAR;
+		};
+		expression := object Dinkie::VariableExpr {
+			name := 'break';
+		};
+	}
+}
+
+// =============================================================================
+// ============================= PROGRAM VARIABLES =============================
+// =============================================================================
+query Flinkie::FlowChart::getProgramVariables() : Sequence(Dinkie::Statement) {
+    var res : Sequence(Dinkie::Statement);
+    res += object Dinkie::Declaration {
+        varName := 'cur_node';
+        type := object Dinkie::BaseType {
+            type := Dinkie::EBaseType::INT;
+        };
+        // Start at the first node
+        expression := object Dinkie::Number {
+        	value := self.nodes->indexOf(self.initialisation.node);
+        }
+    };
+    res += object Dinkie::Declaration {
+        varName := 'answer';
+        type := object Dinkie::BaseType {
+            type := Dinkie::EBaseType::INT;
+        };
+    };
+    res += object Dinkie::Declaration {
+        varName := 'asking';
+        type := object Dinkie::BaseType {
+            type := Dinkie::EBaseType::BOOL;
+        };
+    };
+    res += object Dinkie::StringArrayDecl {
+    	varName := 'wrong_answer';
+    	content := 'This is not a valid option. Please enter your answer again.';
+    };
+    res += object Dinkie::Declaration {
+    	varName := 'break';
+    	type := object Dinkie::BaseType {
+    		type := Dinkie::EBaseType::CHAR;
+    	};
+    	expression := object Dinkie::Character {
+    		value := '\\n';
+    	};
+    };
+    return res;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

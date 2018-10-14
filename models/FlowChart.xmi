@@ -3,16 +3,16 @@
     xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:flinkie2="http://www.example.org/flinkie"
-    xsi:schemaLocation="http://www.example.org/flinkie flinkie2.ecore">
+    xmlns:flinkie2="platform:/resource/flinktodink/metamodels/flinkie/flinkie2.ecore"
+    xsi:schemaLocation="platform:/resource/flinktodink/metamodels/flinkie/flinkie2.ecore">
   <nodes xsi:type="flinkie2:Message"
       text="The lamp is on."
       node="//@nodes.3">
     <assignstats>
       <variableexpr
-          variable="//@init/@declexprs.0/@variable"/>
+          variable="//@initialisation/@declstats.0/@variable"/>
       <intexpr
-          xsi:type="flinkie2:Integer"
+          xsi:type="flinkie2:Number"
           value="1"/>
     </assignstats>
   </nodes>
@@ -21,9 +21,9 @@
       node="//@nodes.2">
     <assignstats>
       <variableexpr
-          variable="//@init/@declexprs.0/@variable"/>
+          variable="//@initialisation/@declstats.0/@variable"/>
       <intexpr
-          xsi:type="flinkie2:Integer"/>
+          xsi:type="flinkie2:Number"/>
     </assignstats>
   </nodes>
   <nodes xsi:type="flinkie2:Question"
@@ -49,15 +49,15 @@
       false="//@nodes.1">
     <assignstats>
       <variableexpr
-          variable="//@init/@declexprs.1/@variable"/>
+          variable="//@initialisation/@declstats.1/@variable"/>
       <intexpr
           xsi:type="flinkie2:TwoOpInt"
           operator="ADD">
         <left
             xsi:type="flinkie2:VariableExpr"
-            variable="//@init/@declexprs.1/@variable"/>
+            variable="//@initialisation/@declstats.1/@variable"/>
         <right
-            xsi:type="flinkie2:Integer"
+            xsi:type="flinkie2:Number"
             value="1"/>
       </intexpr>
     </assignstats>
@@ -65,7 +65,7 @@
         xsi:type="flinkie2:Comparison">
       <right
           xsi:type="flinkie2:VariableExpr"
-          variable="//@init/@declexprs.1/@variable"/>
+          variable="//@initialisation/@declstats.1/@variable"/>
       <left
           xsi:type="flinkie2:TwoOpInt"
           operator="MUL">
@@ -76,14 +76,14 @@
               operator="DIV">
             <left
                 xsi:type="flinkie2:VariableExpr"
-                variable="//@init/@declexprs.1/@variable"/>
+                variable="//@initialisation/@declstats.1/@variable"/>
             <right
-                xsi:type="flinkie2:Integer"
+                xsi:type="flinkie2:Number"
                 value="2"/>
           </intexpr>
         </left>
         <right
-            xsi:type="flinkie2:Integer"
+            xsi:type="flinkie2:Number"
             value="2"/>
       </left>
     </boolexpr>
@@ -93,15 +93,15 @@
       false="//@nodes.0">
     <assignstats>
       <variableexpr
-          variable="//@init/@declexprs.1/@variable"/>
+          variable="//@initialisation/@declstats.1/@variable"/>
       <intexpr
           xsi:type="flinkie2:TwoOpInt"
           operator="ADD">
         <left
             xsi:type="flinkie2:VariableExpr"
-            variable="//@init/@declexprs.1/@variable"/>
+            variable="//@initialisation/@declstats.1/@variable"/>
         <right
-            xsi:type="flinkie2:Integer"
+            xsi:type="flinkie2:Number"
             value="1"/>
       </intexpr>
     </assignstats>
@@ -109,7 +109,7 @@
         xsi:type="flinkie2:Comparison">
       <right
           xsi:type="flinkie2:VariableExpr"
-          variable="//@init/@declexprs.1/@variable"/>
+          variable="//@initialisation/@declstats.1/@variable"/>
       <left
           xsi:type="flinkie2:TwoOpInt"
           operator="MUL">
@@ -120,26 +120,26 @@
               operator="DIV">
             <left
                 xsi:type="flinkie2:VariableExpr"
-                variable="//@init/@declexprs.1/@variable"/>
+                variable="//@initialisation/@declstats.1/@variable"/>
             <right
-                xsi:type="flinkie2:Integer"
+                xsi:type="flinkie2:Number"
                 value="2"/>
           </intexpr>
         </left>
         <right
-            xsi:type="flinkie2:Integer"
+            xsi:type="flinkie2:Number"
             value="2"/>
       </left>
     </boolexpr>
   </nodes>
-  <init node="//@nodes.1">
-    <declexprs>
+  <initialisation node="//@nodes.1">
+    <declstats>
       <variable
           name="lampOn"/>
-    </declexprs>
-    <declexprs>
+    </declstats>
+    <declstats>
       <variable
           name="counter"/>
-    </declexprs>
-  </init>
+    </declstats>
+  </initialisation>
 </flinkie2:FlowChart>

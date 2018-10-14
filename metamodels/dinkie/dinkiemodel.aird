@@ -2567,9 +2567,9 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC%20ESupertypes']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_WiFZkLzzEeiQXcKgNjz1gg" name="Boolean" tooltipText="" outgoingEdges="_WiSN4LzzEeiQXcKgNjz1gg" width="12" height="10">
-      <target xmi:type="ecore:EClass" href="dinkiemodel.ecore#//Boolean"/>
-      <semanticElements xmi:type="ecore:EClass" href="dinkiemodel.ecore#//Boolean"/>
+    <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_WiFZkLzzEeiQXcKgNjz1gg" name="BoolVal" tooltipText="" outgoingEdges="_WiSN4LzzEeiQXcKgNjz1gg" width="12" height="10">
+      <target xmi:type="ecore:EClass" href="dinkiemodel.ecore#//BoolVal"/>
+      <semanticElements xmi:type="ecore:EClass" href="dinkiemodel.ecore#//BoolVal"/>
       <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
       <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
@@ -2578,8 +2578,8 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_WiN8cLzzEeiQXcKgNjz1gg" name="value : EBoolean = false" tooltipText="">
-        <target xmi:type="ecore:EAttribute" href="dinkiemodel.ecore#//Boolean/value"/>
-        <semanticElements xmi:type="ecore:EAttribute" href="dinkiemodel.ecore#//Boolean/value"/>
+        <target xmi:type="ecore:EAttribute" href="dinkiemodel.ecore#//BoolVal/value"/>
+        <semanticElements xmi:type="ecore:EAttribute" href="dinkiemodel.ecore#//BoolVal/value"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_aAJb4LzzEeiQXcKgNjz1gg" labelAlignment="LEFT" description="_SSy8ALyuEeiQXcKgNjz1gg">
           <labelFormat>bold</labelFormat>
         </ownedStyle>
@@ -2587,8 +2587,8 @@
       </ownedElements>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_WiSN4LzzEeiQXcKgNjz1gg" sourceNode="_WiFZkLzzEeiQXcKgNjz1gg" targetNode="_R2g5kLy3EeiQXcKgNjz1gg">
-      <target xmi:type="ecore:EClass" href="dinkiemodel.ecore#//Boolean"/>
-      <semanticElements xmi:type="ecore:EClass" href="dinkiemodel.ecore#//Boolean"/>
+      <target xmi:type="ecore:EClass" href="dinkiemodel.ecore#//BoolVal"/>
+      <semanticElements xmi:type="ecore:EClass" href="dinkiemodel.ecore#//BoolVal"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_WiSN4bzzEeiQXcKgNjz1gg" lineStyle="dash" targetArrow="InputClosedArrow" routingStyle="tree">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC%20ESupertypes']/@conditionnalStyles.0/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" xmi:id="_WiSN4rzzEeiQXcKgNjz1gg" showIcon="false">
@@ -2608,7 +2608,7 @@
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
-      <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_sofQALzzEeiQXcKgNjz1gg" name="value : EChar" tooltipText="">
+      <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_sofQALzzEeiQXcKgNjz1gg" name="value : EString" tooltipText="">
         <target xmi:type="ecore:EAttribute" href="dinkiemodel.ecore#//Character/value"/>
         <semanticElements xmi:type="ecore:EAttribute" href="dinkiemodel.ecore#//Character/value"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_sof3ELzzEeiQXcKgNjz1gg" labelAlignment="LEFT" description="_SSy8ALyuEeiQXcKgNjz1gg">
