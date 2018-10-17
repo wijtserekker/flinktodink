@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dinkiemodel:Program xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dinkiemodel="http://www.example.org/dinkiemodel" xsi:schemaLocation="http://www.example.org/dinkiemodel ../metamodels/dinkie/dinkiemodel.ecore">
+  <mainFunc>
+    <statements xsi:type="dinkiemodel:Declaration" varName="var_lampOn">
+      <type/>
+    </statements>
+    <statements xsi:type="dinkiemodel:Declaration" varName="var_counter">
+      <type/>
+    </statements>
+    <statements xsi:type="dinkiemodel:Declaration" varName="cur_node">
+      <type/>
+      <expression xsi:type="dinkiemodel:Number" value="2"/>
+    </statements>
+    <statements xsi:type="dinkiemodel:Declaration" varName="answer">
+      <type/>
+    </statements>
+    <statements xsi:type="dinkiemodel:Declaration" varName="asking">
+      <type type="BOOL"/>
+    </statements>
+    <statements xsi:type="dinkiemodel:StringArrayDecl" varName="wrong_answer" content="This is not a valid option. Please enter your answer again."/>
+    <statements xsi:type="dinkiemodel:Declaration" varName="break">
+      <type type="CHAR"/>
+      <expression xsi:type="dinkiemodel:Character" value="\n"/>
+    </statements>
+    <statements xsi:type="dinkiemodel:StringArrayDecl" varName="mes_0" content="The lamp is on."/>
+    <statements xsi:type="dinkiemodel:StringArrayDecl" varName="mes_1" content="The lamp is off."/>
+    <statements xsi:type="dinkiemodel:StringArrayDecl" varName="ques_2" content="Do you want to turn the lamp on?"/>
+    <statements xsi:type="dinkiemodel:StringArrayDecl" varName="ques_3" content="Do you want to turn the lamp off?"/>
+    <statements xsi:type="dinkiemodel:StringArrayDecl" varName="option_4" content="1. NO"/>
+    <statements xsi:type="dinkiemodel:StringArrayDecl" varName="option_5" content="2. YES"/>
+    <statements xsi:type="dinkiemodel:StringArrayDecl" varName="option_6" content="1. NO"/>
+    <statements xsi:type="dinkiemodel:StringArrayDecl" varName="option_7" content="2. YES"/>
+    <statements xsi:type="dinkiemodel:While">
+      <expression xsi:type="dinkiemodel:TwoOperator" operator="NOT_EQUAL">
+        <leftExpr xsi:type="dinkiemodel:VariableExpr" name="cur_node"/>
+        <rightExpr xsi:type="dinkiemodel:Number" value="-1"/>
+      </expression>
+      <statements xsi:type="dinkiemodel:IfOne">
+        <expression xsi:type="dinkiemodel:TwoOperator" operator="EQUAL">
+          <leftExpr xsi:type="dinkiemodel:VariableExpr" name="cur_node"/>
+          <rightExpr xsi:type="dinkiemodel:Number" value="1"/>
+        </expression>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="mes_0"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="break"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:Assign" varName="cur_node">
+          <expression xsi:type="dinkiemodel:Number" value="4"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="break"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:Assign" varName="var_lampOn">
+          <expression xsi:type="dinkiemodel:Number" value="1"/>
+        </statements>
+      </statements>
+      <statements xsi:type="dinkiemodel:IfOne">
+        <expression xsi:type="dinkiemodel:TwoOperator" operator="EQUAL">
+          <leftExpr xsi:type="dinkiemodel:VariableExpr" name="cur_node"/>
+          <rightExpr xsi:type="dinkiemodel:Number" value="2"/>
+        </expression>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="mes_1"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="break"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:Assign" varName="cur_node">
+          <expression xsi:type="dinkiemodel:Number" value="3"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="break"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:Assign" varName="var_lampOn">
+          <expression xsi:type="dinkiemodel:Number"/>
+        </statements>
+      </statements>
+      <statements xsi:type="dinkiemodel:IfOne">
+        <expression xsi:type="dinkiemodel:TwoOperator" operator="EQUAL">
+          <leftExpr xsi:type="dinkiemodel:VariableExpr" name="cur_node"/>
+          <rightExpr xsi:type="dinkiemodel:Number" value="3"/>
+        </expression>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="ques_2"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="break"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="option_4"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="break"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="option_5"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="break"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:Assign" varName="asking">
+          <expression xsi:type="dinkiemodel:BoolVal" value="true"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:While">
+          <expression xsi:type="dinkiemodel:VariableExpr" name="asking"/>
+          <statements xsi:type="dinkiemodel:ReadStatement" varName="answer">
+            <type/>
+          </statements>
+          <statements xsi:type="dinkiemodel:IfOne">
+            <expression xsi:type="dinkiemodel:TwoOperator" operator="EQUAL">
+              <leftExpr xsi:type="dinkiemodel:VariableExpr" name="answer"/>
+              <rightExpr xsi:type="dinkiemodel:Number" value="1"/>
+            </expression>
+            <statements xsi:type="dinkiemodel:Assign" varName="cur_node">
+              <expression xsi:type="dinkiemodel:Number" value="2"/>
+            </statements>
+            <statements xsi:type="dinkiemodel:Assign" varName="asking">
+              <expression xsi:type="dinkiemodel:BoolVal"/>
+            </statements>
+          </statements>
+          <statements xsi:type="dinkiemodel:IfOne">
+            <expression xsi:type="dinkiemodel:TwoOperator" operator="EQUAL">
+              <leftExpr xsi:type="dinkiemodel:VariableExpr" name="answer"/>
+              <rightExpr xsi:type="dinkiemodel:Number" value="2"/>
+            </expression>
+            <statements xsi:type="dinkiemodel:Assign" varName="cur_node">
+              <expression xsi:type="dinkiemodel:Number" value="5"/>
+            </statements>
+            <statements xsi:type="dinkiemodel:Assign" varName="asking">
+              <expression xsi:type="dinkiemodel:BoolVal"/>
+            </statements>
+          </statements>
+          <statements xsi:type="dinkiemodel:IfOne">
+            <expression xsi:type="dinkiemodel:TwoOperator" operator="AND">
+              <leftExpr xsi:type="dinkiemodel:TwoOperator" operator="LT">
+                <leftExpr xsi:type="dinkiemodel:VariableExpr" name="answer"/>
+                <rightExpr xsi:type="dinkiemodel:Number" value="1"/>
+              </leftExpr>
+              <rightExpr xsi:type="dinkiemodel:TwoOperator" operator="GT">
+                <leftExpr xsi:type="dinkiemodel:VariableExpr" name="answer"/>
+                <rightExpr xsi:type="dinkiemodel:Number" value="2"/>
+              </rightExpr>
+            </expression>
+            <statements xsi:type="dinkiemodel:WriteStatement">
+              <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+              <expression xsi:type="dinkiemodel:VariableExpr" name="wrong_answer"/>
+            </statements>
+            <statements xsi:type="dinkiemodel:WriteStatement">
+              <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+              <expression xsi:type="dinkiemodel:VariableExpr" name="break"/>
+            </statements>
+          </statements>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="break"/>
+        </statements>
+      </statements>
+      <statements xsi:type="dinkiemodel:IfOne">
+        <expression xsi:type="dinkiemodel:TwoOperator" operator="EQUAL">
+          <leftExpr xsi:type="dinkiemodel:VariableExpr" name="cur_node"/>
+          <rightExpr xsi:type="dinkiemodel:Number" value="4"/>
+        </expression>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="ques_3"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="break"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="option_6"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="break"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="option_7"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="break"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:Assign" varName="asking">
+          <expression xsi:type="dinkiemodel:BoolVal" value="true"/>
+        </statements>
+        <statements xsi:type="dinkiemodel:While">
+          <expression xsi:type="dinkiemodel:VariableExpr" name="asking"/>
+          <statements xsi:type="dinkiemodel:ReadStatement" varName="answer">
+            <type/>
+          </statements>
+          <statements xsi:type="dinkiemodel:IfOne">
+            <expression xsi:type="dinkiemodel:TwoOperator" operator="EQUAL">
+              <leftExpr xsi:type="dinkiemodel:VariableExpr" name="answer"/>
+              <rightExpr xsi:type="dinkiemodel:Number" value="1"/>
+            </expression>
+            <statements xsi:type="dinkiemodel:Assign" varName="cur_node">
+              <expression xsi:type="dinkiemodel:Number" value="1"/>
+            </statements>
+            <statements xsi:type="dinkiemodel:Assign" varName="asking">
+              <expression xsi:type="dinkiemodel:BoolVal"/>
+            </statements>
+          </statements>
+          <statements xsi:type="dinkiemodel:IfOne">
+            <expression xsi:type="dinkiemodel:TwoOperator" operator="EQUAL">
+              <leftExpr xsi:type="dinkiemodel:VariableExpr" name="answer"/>
+              <rightExpr xsi:type="dinkiemodel:Number" value="2"/>
+            </expression>
+            <statements xsi:type="dinkiemodel:Assign" varName="cur_node">
+              <expression xsi:type="dinkiemodel:Number" value="6"/>
+            </statements>
+            <statements xsi:type="dinkiemodel:Assign" varName="asking">
+              <expression xsi:type="dinkiemodel:BoolVal"/>
+            </statements>
+          </statements>
+          <statements xsi:type="dinkiemodel:IfOne">
+            <expression xsi:type="dinkiemodel:TwoOperator" operator="AND">
+              <leftExpr xsi:type="dinkiemodel:TwoOperator" operator="LT">
+                <leftExpr xsi:type="dinkiemodel:VariableExpr" name="answer"/>
+                <rightExpr xsi:type="dinkiemodel:Number" value="1"/>
+              </leftExpr>
+              <rightExpr xsi:type="dinkiemodel:TwoOperator" operator="GT">
+                <leftExpr xsi:type="dinkiemodel:VariableExpr" name="answer"/>
+                <rightExpr xsi:type="dinkiemodel:Number" value="2"/>
+              </rightExpr>
+            </expression>
+            <statements xsi:type="dinkiemodel:WriteStatement">
+              <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+              <expression xsi:type="dinkiemodel:VariableExpr" name="wrong_answer"/>
+            </statements>
+            <statements xsi:type="dinkiemodel:WriteStatement">
+              <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+              <expression xsi:type="dinkiemodel:VariableExpr" name="break"/>
+            </statements>
+          </statements>
+        </statements>
+        <statements xsi:type="dinkiemodel:WriteStatement">
+          <type xsi:type="dinkiemodel:ArrayType" arrayType="CHAR"/>
+          <expression xsi:type="dinkiemodel:VariableExpr" name="break"/>
+        </statements>
+      </statements>
+      <statements xsi:type="dinkiemodel:IfOne">
+        <expression xsi:type="dinkiemodel:TwoOperator" operator="EQUAL">
+          <leftExpr xsi:type="dinkiemodel:VariableExpr" name="cur_node"/>
+          <rightExpr xsi:type="dinkiemodel:Number" value="5"/>
+        </expression>
+        <statements xsi:type="dinkiemodel:IfTwo">
+          <thenStats xsi:type="dinkiemodel:Assign" varName="cur_node">
+            <expression xsi:type="dinkiemodel:Number" value="1"/>
+          </thenStats>
+          <expression xsi:type="dinkiemodel:TwoOperator" operator="EQUAL">
+            <leftExpr xsi:type="dinkiemodel:TwoOperator" operator="TIMES">
+              <leftExpr xsi:type="dinkiemodel:BracketExpr">
+                <expression xsi:type="dinkiemodel:TwoOperator" operator="DEVIDE">
+                  <leftExpr xsi:type="dinkiemodel:VariableExpr" name="var_counter"/>
+                  <rightExpr xsi:type="dinkiemodel:Number" value="2"/>
+                </expression>
+              </leftExpr>
+              <rightExpr xsi:type="dinkiemodel:Number" value="2"/>
+            </leftExpr>
+            <rightExpr xsi:type="dinkiemodel:VariableExpr" name="var_counter"/>
+          </expression>
+          <elseStats xsi:type="dinkiemodel:Assign" varName="cur_node">
+            <expression xsi:type="dinkiemodel:Number" value="2"/>
+          </elseStats>
+        </statements>
+        <statements xsi:type="dinkiemodel:Assign" varName="var_counter">
+          <expression xsi:type="dinkiemodel:TwoOperator" operator="PLUS">
+            <leftExpr xsi:type="dinkiemodel:VariableExpr" name="var_counter"/>
+            <rightExpr xsi:type="dinkiemodel:Number" value="1"/>
+          </expression>
+        </statements>
+      </statements>
+      <statements xsi:type="dinkiemodel:IfOne">
+        <expression xsi:type="dinkiemodel:TwoOperator" operator="EQUAL">
+          <leftExpr xsi:type="dinkiemodel:VariableExpr" name="cur_node"/>
+          <rightExpr xsi:type="dinkiemodel:Number" value="6"/>
+        </expression>
+        <statements xsi:type="dinkiemodel:IfTwo">
+          <thenStats xsi:type="dinkiemodel:Assign" varName="cur_node">
+            <expression xsi:type="dinkiemodel:Number" value="2"/>
+          </thenStats>
+          <expression xsi:type="dinkiemodel:TwoOperator" operator="EQUAL">
+            <leftExpr xsi:type="dinkiemodel:TwoOperator" operator="TIMES">
+              <leftExpr xsi:type="dinkiemodel:BracketExpr">
+                <expression xsi:type="dinkiemodel:TwoOperator" operator="DEVIDE">
+                  <leftExpr xsi:type="dinkiemodel:VariableExpr" name="var_counter"/>
+                  <rightExpr xsi:type="dinkiemodel:Number" value="2"/>
+                </expression>
+              </leftExpr>
+              <rightExpr xsi:type="dinkiemodel:Number" value="2"/>
+            </leftExpr>
+            <rightExpr xsi:type="dinkiemodel:VariableExpr" name="var_counter"/>
+          </expression>
+          <elseStats xsi:type="dinkiemodel:Assign" varName="cur_node">
+            <expression xsi:type="dinkiemodel:Number" value="1"/>
+          </elseStats>
+        </statements>
+        <statements xsi:type="dinkiemodel:Assign" varName="var_counter">
+          <expression xsi:type="dinkiemodel:TwoOperator" operator="PLUS">
+            <leftExpr xsi:type="dinkiemodel:VariableExpr" name="var_counter"/>
+            <rightExpr xsi:type="dinkiemodel:Number" value="1"/>
+          </expression>
+        </statements>
+      </statements>
+    </statements>
+  </mainFunc>
+</dinkiemodel:Program>

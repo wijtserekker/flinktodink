@@ -172,7 +172,7 @@ mapping Flinkie::Question::questionToIf(flowchart : Flinkie::FlowChart) : Dinkie
     					value := 1;
     				};
     			};
-    			operator := Dinkie::ETwoOperator::AND;
+    			operator := Dinkie::ETwoOperator::OR;
     			rightExpr := object Dinkie::TwoOperator {
     				leftExpr := object Dinkie::VariableExpr {
     					name := 'answer';
