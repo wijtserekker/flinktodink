@@ -42,11 +42,14 @@ mapping Flinkie::FlowChart::flowchartToProgram() : Dinkie::Program {
         	statements += self.nodes[Flinkie::Question]->map questionToIf(self);
         	// Boolean evaluation Nodes
         	statements += self.nodes[Flinkie::BooleanEvaluation]->map booleanEvaluationToIf(self);
-        }
+        };
     };
-    
 }
 
+
+// =============================================================================
+// ========================== DECLARATION GENERATION ===========================
+// =============================================================================
 mapping Flinkie::DeclStat::declStatToDeclaration() : Dinkie::Declaration {
     varName := 'var_' + self.variable.name;
     type := object Dinkie::BaseType {
@@ -78,6 +81,9 @@ mapping Flinkie::Option::optionToDeclaration(question : Flinkie::Question) : Din
     content := question.options->indexOf(self).toString() + '. ' + self.text;
 }
 
+// =============================================================================
+// =============================== IF GENERATION ===============================
+// =============================================================================
 mapping Flinkie::Message::messageToIf(flowchart : Flinkie::FlowChart) : Dinkie::IfOne {
 	expression := object Dinkie::TwoOperator {
 		leftExpr := object Dinkie::VariableExpr {
