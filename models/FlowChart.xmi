@@ -3,8 +3,8 @@
     xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:flinkie2="platform:/resource/flinktodink/metamodels/flinkie/flinkie2.ecore"
-    xsi:schemaLocation="platform:/resource/flinktodink/metamodels/flinkie/flinkie2.ecore">
+    xmlns:flinkie2="http://www.example.org/flinkie"
+    xsi:schemaLocation="http://www.example.org/flinkie ../metamodels/flinkie/flinkie2.ecore">
   <nodes xsi:type="flinkie2:Message"
       text="The lamp is on."
       node="//@nodes.3">
@@ -132,10 +132,11 @@
       </left>
     </boolexpr>
   </nodes>
-  <initialisation node="//@nodes.1">
+  <initialisation
+      node="//@nodes.1">
     <declstats>
       <variable
-          name="lampOn"/>
+          name="lamp_on"/>
     </declstats>
     <declstats>
       <variable

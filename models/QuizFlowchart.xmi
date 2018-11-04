@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flinkie2:FlowChart
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:flinkie2="http://www.example.org/flinkie"
+    xsi:schemaLocation="http://www.example.org/flinkie ../metamodels/flinkie/flinkie2.ecore">
+  <nodes xsi:type="flinkie2:Question"
+      text="Is MDE fun?">
+    <options
+        text="NO"
+        node="//@nodes.1"/>
+    <options
+        text="YES"
+        node="//@nodes.2"/>
+  </nodes>
+  <nodes xsi:type="flinkie2:Message"
+      text="Wrong! Ofcourse MDE is fun!"
+      node="//@nodes.3"/>
+  <nodes xsi:type="flinkie2:Message"
+      text="Correct!"
+      node="//@nodes.3">
+    <assignstats>
+      <variableexpr
+          variable="//@initialisation/@declstats.0/@variable"/>
+      <intexpr
+          xsi:type="flinkie2:TwoOpInt"
+          operator="ADD">
+        <left
+            xsi:type="flinkie2:VariableExpr"
+            variable="//@initialisation/@declstats.0/@variable"/>
+        <right
+            xsi:type="flinkie2:Number"
+            value="1"/>
+      </intexpr>
+    </assignstats>
+  </nodes>
+  <nodes xsi:type="flinkie2:Question"
+      text="How many holes are in a polo?">
+    <options
+        text="1"
+        node="//@nodes.4"/>
+    <options
+        text="2"
+        node="//@nodes.4"/>
+    <options
+        text="3"
+        node="//@nodes.4"/>
+    <options
+        text="4"
+        node="//@nodes.5"/>
+  </nodes>
+  <nodes xsi:type="flinkie2:Message"
+      text="Wrong! A polo has 4 holes."
+      node="//@nodes.6"/>
+  <nodes xsi:type="flinkie2:Message"
+      text="Correct!"
+      node="//@nodes.6">
+    <assignstats>
+      <variableexpr
+          variable="//@initialisation/@declstats.0/@variable"/>
+      <intexpr
+          xsi:type="flinkie2:TwoOpInt"
+          operator="ADD">
+        <left
+            xsi:type="flinkie2:VariableExpr"
+            variable="//@initialisation/@declstats.0/@variable"/>
+        <right
+            xsi:type="flinkie2:Number"
+            value="1"/>
+      </intexpr>
+    </assignstats>
+  </nodes>
+  <nodes xsi:type="flinkie2:BooleanEvaluation"
+      true="//@nodes.8"
+      false="//@nodes.7">
+    <boolexpr
+        xsi:type="flinkie2:Comparison"
+        operator="GT">
+      <right
+          xsi:type="flinkie2:Number"
+          value="1"/>
+      <left
+          xsi:type="flinkie2:VariableExpr"
+          variable="//@initialisation/@declstats.0/@variable"/>
+    </boolexpr>
+  </nodes>
+  <nodes xsi:type="flinkie2:Message"
+      text="You failed the test!"/>
+  <nodes xsi:type="flinkie2:Message"
+      text="You passed the test!"/>
+  <initialisation
+      node="//@nodes.0">
+    <declstats>
+      <variable
+          name="points"/>
+    </declstats>
+  </initialisation>
+</flinkie2:FlowChart>
